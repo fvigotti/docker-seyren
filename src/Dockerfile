@@ -1,6 +1,6 @@
 FROM fvigotti/docker-fatjdk8
 
-RUN apt-get -y install npm nodejs-legacy nodejs && \
+RUN apt-get update -y && apt-get -y install npm nodejs-legacy nodejs && \
     npm install -g wait-for-mongo
 
 ADD https://github.com/scobal/seyren/releases/download/1.2.1/seyren-1.2.1.jar /opt/seyren.jar
