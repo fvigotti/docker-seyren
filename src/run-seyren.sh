@@ -109,4 +109,8 @@ echo "GRAPHITE_SOCKET_TIMEOUT = ${GRAPHITE_SOCKET_TIMEOUT}" ;
 
 env
 
+# timeout is in milliseconds
+export TIMEOUT=600000
+wait-for-mongo
+
 java -jar /opt/seyren.jar
