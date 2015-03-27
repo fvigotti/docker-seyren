@@ -84,6 +84,10 @@ esac
 shift
 done
 
+[ -z "${GRAPHITE_URL}" ] && ! [ -z "${GRAPHITE_NAME}" ] && {
+    echo 'using provided linked graphite container..'
+    export GRAPHITE_URL=http://$GRAPHITE_PORT_80_TCP_ADDR:$GRAPHITE_PORT_80_TCP_PORT/
+}
 
 [ -z "${GRAPHITE_URL}" ] && {
     echo 'all seyren accepted env vars are availble, but GRAPHITE_URL IS REQUIRED ! Usage: run-seyren.sh --GRAPHITE_URL $url'
@@ -91,6 +95,7 @@ done
 }
 
 export MONGO_URL=mongodb://$MONGODB_PORT_27017_TCP_ADDR:$MONGODB_PORT_27017_TCP_PORT/seyren
+
 
 echo "MONGO_URL = ${MONGO_URL}" ;
 echo "SEYREN_URL = ${SEYREN_URL}" ;
