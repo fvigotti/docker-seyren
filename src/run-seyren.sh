@@ -84,15 +84,15 @@ esac
 shift
 done
 
+
+env
+
+
 [ -z "${GRAPHITE_URL}" ] && ! [ -z "${GRAPHITE_NAME}" ] && {
     echo 'using provided linked graphite container..'
     export GRAPHITE_URL=http://$GRAPHITE_PORT_80_TCP_ADDR:$GRAPHITE_PORT_80_TCP_PORT/
 }
 
-[ -z "${GRAPHITE_URL}" ] && {
-    echo 'all seyren accepted env vars are availble, but GRAPHITE_URL IS REQUIRED ! Usage: run-seyren.sh --GRAPHITE_URL $url'
-    exit 1
-}
 
 export MONGO_URL=mongodb://$MONGODB_PORT_27017_TCP_ADDR:$MONGODB_PORT_27017_TCP_PORT/seyren
 
@@ -112,7 +112,11 @@ echo "GRAPHITE_CONNECTION_REQUEST_TIMEOUT = ${GRAPHITE_CONNECTION_REQUEST_TIMEOU
 echo "GRAPHITE_CONNECT_TIMEOUT = ${GRAPHITE_CONNECT_TIMEOUT}" ;
 echo "GRAPHITE_SOCKET_TIMEOUT = ${GRAPHITE_SOCKET_TIMEOUT}" ;
 
-env
+[ -z "${GRAPHITE_URL}" ] && {
+    echo 'all seyren accepted env vars are availble, but GRAPHITE_URL IS REQUIRED ! Usage: run-seyren.sh --GRAPHITE_URL $url'
+    exit 1
+}
+
 
 # timeout is in milliseconds
 export TIMEOUT=600000
